@@ -1,27 +1,19 @@
-from xmlrpc.server import SimpleXMLRPCServer, SimpleXMLRPCRequestHandler
+from xmlrpc.server import SimpleXMLRPCServer
 from os import getenv
-
-class ReplicaHandler(SimpleXMLRPCRequestHandler):
-    rpc_path = ("/",)
 
 class Replica:
     def __init__(self, directory):
-        """
-        directory = ".data"
-        open(self.directory + "/" + nome_arquivo, "r").read()
-        """
-        pass
+        self.directory = ".data"
 
-    def read(nome_arquivo):
-        pass
+    def read(self, nome_arquivo):
+        with open(self.directory + "/" + nome_arquivo, 'r') as arq:
+            return arq.read()
 
-    def write(nome_arquivo, dados):
-        pass
+    def write(self, nome_arquivo, dados):
+        with open(self.directory + "/" + nome_arquivo, 'w') as arq:
+            arq.write(dados)
 
-with SimpleXMLRPCServer((getenv("IP_HOST", default="localhost"), 8000),
-        requestHandler=ReplicaHandler) as server:
-    server.register_introspection_functions()
-
-    server.register_instance(Replica(getenv("DFS_DIR", default=".data")))
-
-    server.serve_forever()
+server = SimpleXMLRPCServer((getenv("IP_HOST", default="localhost"), 8000), allow_none=True)
+server.register_introspection_functions()
+server.register_instance(Replica(getenv("DFS_DIR", default=".data")))
+server.serve_forever()
