@@ -6,15 +6,16 @@ class ReplicaHandler(SimpleXMLRPCRequestHandler):
 
 class Replica:
     def __init__(self, directory):
+        """
+        directory = ".data"
+        open(self.directory + "/" + nome_arquivo, "r").read()
+        """
         pass
 
-    def get(self):
+    def read(nome_arquivo):
         pass
 
-    def delete(self):
-        pass
-
-    def put(self, arquivo):
+    def write(nome_arquivo, dados):
         pass
 
 with SimpleXMLRPCServer((getenv("IP_HOST", default="localhost"), 8000),
