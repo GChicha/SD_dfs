@@ -58,7 +58,7 @@ class Master:
         if self.files_map.get(name) is None:
             self.files_map[name] = Arquivo(name, "", self.replicas)
         replica = random.choice(self.replicas)
-        return self.files_map[name].read(tipo, replica)
+        return self.files_map[name].open(tipo, replica)
 
     def write(self, name, dados, password=None):
         self.files_map[name].write(dados, self.replicas, password)
